@@ -18,16 +18,9 @@ Requirements:
 
 
 Setup:
-
-Create a new database in your sql server named "traffic".
-
-Execute the traffic.sql to create the table structures.
-
-Edit sniffer.py to adjust the SQL user/pass, and run it in screen or make a systemd/sysvinit service for it.
-
-Put your network interface in promiscuous mode.  On Debian, you can use “ip link” to see your interfaces, then use “ip link set eth0 promisc on” to set the interface to promiscuous mode.  (replace eth0 with your interface name)
-
-Edit cleanup.py to adjust the SQL user/pass, and put it in crontab to run every day at midnight.  This consolidates the SQL records which makes it possible to record years of data, and also makes the reports faster.
-
-Edit index.php to adjust the SQL user/pass and move it to a folder where it can be served from your webserver.  Apache on Debian uses /var/www/html
-
+- Create a new database in your sql server named "traffic".
+- Execute the traffic.sql to create the table structures.
+- Edit sniffer.py to adjust the SQL user/pass, and run it in screen or make a systemd/sysvinit service for it.
+- Put your network interface in promiscuous mode.  On Debian, you can use “ip link” to see your interfaces, then use “ip link set eth0 promisc on” to set the interface to promiscuous mode.  (replace eth0 with your interface name)
+- Edit cleanup.py to adjust the SQL user/pass, and put it in crontab to run every day at midnight.  This consolidates the SQL records which makes it possible to record years of data, and also makes the reports faster.
+- Edit index.php to adjust the SQL user/pass and move it to a folder where it can be served from your webserver.  Apache on Debian uses /var/www/html
