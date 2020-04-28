@@ -18,24 +18,6 @@ print (mysql)
 print("preparing sql cursor...")
 c = mysql.cursor()
 
-#print("finding min/max ID..")
-#c.execute("SELECT min(id) as min, max(id) as max  FROM data")
-#r = c.fetchone()
-#print(r)
-
-#min = r[0]
-#max = r[1]
-
-#min = max - 100000000;
-
-#print("deleting ID < " + str(min))
-#c.execute("delete from data where id < " + str(min));
-#r = c.fetchone()
-
-#print("optimizing table...")
-#c.execute("optimize table data")
-#r = c.fetchone()
-
 print("Finding DAY... ")
 c.execute("select dayofyear(curdate()-1) as day")
 r = c.fetchone()
