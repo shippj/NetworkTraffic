@@ -6,6 +6,7 @@ I WILL BE UPLOADING THE SOURCE CODE VERY SOON!
 
 TODO: 
 make index.php sql-injection proof
+
 survive newyears
 
 
