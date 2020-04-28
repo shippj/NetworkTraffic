@@ -1,0 +1,10 @@
+[Unit]
+Description=Network Traffic Recorder
+After=network.target mariadb.service
+
+[Service]
+ExecStart=/usr/bin/python /root/sniffer.py
+
+[Install]
+WantedBy=multi-user.target
+
