@@ -9,7 +9,7 @@ make index.php sql-injection proof
 survive newyears
 
 
-This project collects source and destination IPs and port numbers from a network and writes it to a MySQL/MariaDB server.  Then, you can use the PHP script to see which IP numbers are hogging the data usage.  It can run 24/7 for years without interruption.
+This project collects source and destination IPs and port numbers from a network and writes it to a MySQL/MariaDB server.  Then, you can use the PHP script to see which IP numbers are hogging the data usage.  It can run 24/7 for years without interruption. It doesn’t currently support IPv6 but I’ll probably be adding that one day.
 
 
 Requirements:
