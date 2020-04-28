@@ -4,9 +4,8 @@ Useful for seeing which devices on a LAN are hogging the ISP’s monthly data al
 I WILL BE UPLOADING THE SOURCE CODE VERY SOON!
 
 
-TODO: 
+TODO:
 make index.php sql-injection proof
-
 survive newyears
 
 
