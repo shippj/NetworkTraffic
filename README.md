@@ -14,7 +14,7 @@ This project collects source and destination IPs and port numbers from a network
 
 Requirements:
 - A computer with python, mysql/mariadb, php, and web server such as apache.  A headless core2duo with 1GB ram can handle at least 100mbit/s.
-- Either a managed ethernet switch that supports port mirroring so you can mirror all packets to the sniffer computer, or 2 network ports in your computer setup as an eternet bridge.
+- Either a managed ethernet switch that supports port mirroring so you can mirror all packets to the sniffer computer, or 2 network ports in your computer setup as an ethernet bridge.
 
 
 Setup:
