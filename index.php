@@ -7,9 +7,7 @@
   </head>
   <body>
 	<?php
-	
-	
-	
+
 $servername = "localhost";
 $username = "sniffer";
 $password = "sniffer";
@@ -24,7 +22,33 @@ if ($conn->connect_error) {
 }
 //echo "Connected successfully";
 
-if (isset($_GET["day"])){
+if (isset($_GET["ipbyhour"])){
+	echo "Day="	. $_GET["day"] . "<br>";
+	echo "IP="	. $_GET["ipbyhour"] . "<br>";
+	$sql = "select hour, round(sum(size)/1000000000,1) as GB from data where day=" . $_GET["day"] . " and to_ip='" . $_GET["ipbyhour"] . "' group by hour order by hour;";
+	$result = $conn->query($sql);
+
+	echo"<table border=1><tr><td>Hour</td><td>GB</td></tr>";
+	while($row = $result->fetch_assoc()) {
+			echo "<tr><td>" . $row["hour"]. "</td><td>" . $row["GB"] . "</td><td>" . str_repeat("l",$row["GB"]) . "</td></tr>";
+			}
+	echo"</table>";
+	}
+	
+elseif (isset($_GET["daybyhour"])){
+	echo "Hourly report for day " . $_GET["daybyhour"] . "<br>";
+	
+	$sql = "select hour, round(sum(size)/1000000000,1) as GB from data where day=" . $_GET["daybyhour"] . " group by hour order by hour;";
+	$result = $conn->query($sql);
+
+	echo"<table border=1><tr><td>Hour</td><td>GB</td></tr>";
+	while($row = $result->fetch_assoc()) {
+			echo "<tr><td>" . $row["hour"]. "</td><td>" . $row["GB"] . "</td><td>" . str_repeat("l",$row["GB"]) . "</td></tr>";
+			}
+	echo"</table>";
+	}
+	
+elseif (isset($_GET["day"])){
 	echo "Report for day " . $_GET["day"] . "<br>";
 	
 	$sql = "select to_ip, round(sum(sum_size)/1000000000,1) as GB from reports where day=" . $_GET["day"] . " group by to_ip having sum(sum_size)>50000000 order by sum(sum_size) desc;";
@@ -32,10 +56,13 @@ if (isset($_GET["day"])){
 
 	echo"<table border=1><tr><td>Dest IP</td><td>GB</td></tr>";
 	while($row = $result->fetch_assoc()) {
-			echo "<tr><td>" . $row["to_ip"]. "</td><td>" . $row["GB"] . "</td><td>" . str_repeat("l",$row["GB"]) . "</td></tr>";
+//			echo "<tr><td>" . $row["to_ip"]. "</td><td>" . $row["GB"] . "</td><td>" . str_repeat("l",$row["GB"]) . "</td></tr>";
+			echo "<tr><td><a href=?day=" . $_GET["day"] . "&ipbyhour=" . $row["to_ip"]. ">" . $row["to_ip"]. "</a></td><td>" . $row["GB"] . "</td><td>" . str_repeat("l",$row["GB"]) . "</td></tr>";
 			}
 	echo"</table>";
+	echo "<br><a href=?daybyhour=" . $_GET["day"] . ">See hourly breakdown</a>";
 	}
+	
 elseif (isset($_GET["today"])){
 	$sql = "select dayofyear(curdate()) as day";
 	$result = $conn->query($sql);
@@ -51,7 +78,26 @@ elseif (isset($_GET["today"])){
 			echo "<tr><td>" . $row["to_ip"]. "</td><td>" . $row["GB"] . "</td><td>" . str_repeat("l",$row["GB"]) . "</td></tr>";
 			}
 	echo"</table>";
+	echo "<br><a href=?todaybyhour=1>See hourly breakdown</a>";
 	}
+	
+elseif (isset($_GET["todaybyhour"])){
+	$sql = "select dayofyear(curdate()) as day";
+	$result = $conn->query($sql);
+	$row = $result->fetch_assoc();
+	$day = $row["day"];
+	echo "Report for today (" . $day . ")<br>";
+
+	$sql = "select hour, round(sum(size)/1000000000,1) as GB from data where day=" . $day . " group by hour order by hour;";
+	$result = $conn->query($sql);
+
+	echo"<table border=1><tr><td>Hour</td><td>GB</td></tr>";
+	while($row = $result->fetch_assoc()) {
+			echo "<tr><td>" . $row["hour"]. "</td><td>" . $row["GB"] . "</td><td>" . str_repeat("l",$row["GB"]) . "</td></tr>";
+			}
+	echo"</table>";
+	}
+	
 elseif (isset($_GET["first"])){
 	echo "Report for day " . $_GET["first"] . " to " . $_GET["last"] . "<br>";
 	
